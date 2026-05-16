@@ -14,4 +14,4 @@ Este proyecto automatiza la auditoría y facturación de servicios de alimentaci
 * **Impacto:** Reducción del error humano en facturación y optimización de tiempos de auditoría.
 
 ---
-**Juan La Rotta** *Systems Technician | Social Sciences | Territorial Planning | Data Analytics Aspirant*
+**Juan La Rotta** *Systems Technician  Data Analytics Aspirant*
