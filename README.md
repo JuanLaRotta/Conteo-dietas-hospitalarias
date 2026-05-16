@@ -1,6 +1,6 @@
 # 🏥 Sistema ETL de Dietas Hospitalarias
 Este proyecto surgió de la necesidad de procesar el conteo de dietas de forma mas eficiente, disminuir sobreprocesos operativos y manuales.
-Este proyecto automatiza la auditoría y facturación de servicios de alimentación hospitalaria, transformando datos complejos en información estratégica para la toma de decisiones.
+se automatiza la auditoría y facturación de servicios de alimentación hospitalaria, transformando datos complejos en información estratégica para la toma de decisiones.
 
 ## 🛠️ Desafíos Técnicos Resueltos
 * **Procesamiento Multivariado:** Desglose de múltiples dietas registradas en una sola celda mediante expansión de listas en Lenguaje M.
