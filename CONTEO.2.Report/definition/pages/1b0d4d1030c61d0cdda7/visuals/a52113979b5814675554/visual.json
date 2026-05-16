@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "a52113979b5814675554",
+  "position": {
+    "x": 1300,
+    "y": 150,
+    "z": 6000,
+    "height": 122.85714285714286,
+    "width": 325.71428571428572,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "JUAN ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "28pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " LA ROTTA",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "28pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

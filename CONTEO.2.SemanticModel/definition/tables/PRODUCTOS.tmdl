@@ -1,0 +1,156 @@
+table PRODUCTOS
+	lineageTag: b0b4809a-ada7-49d5-804e-efbcdbcb6bc9
+
+	column COD_PRODUCTO
+		dataType: string
+		lineageTag: 483ef59e-2b8b-4525-a955-fbb933f57456
+		summarizeBy: none
+		sourceColumn: COD_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_DIETA
+		dataType: string
+		lineageTag: 3056a784-9eda-4e8f-8853-359c0568a232
+		summarizeBy: none
+		sourceColumn: COD_DIETA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_EMPLATADO
+		dataType: string
+		lineageTag: 7f744a1d-f715-43f9-b147-854ef47b8035
+		summarizeBy: none
+		sourceColumn: TIPO_EMPLATADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_DIETA
+		dataType: string
+		lineageTag: a3f7ab3a-9b21-4fe3-a1ae-488548c088e7
+		summarizeBy: none
+		sourceColumn: TIPO_DIETA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIEMPO_COMIDA
+		dataType: string
+		lineageTag: 3f3e2395-fe12-45f9-88e8-85d1f839e8e3
+		summarizeBy: none
+		sourceColumn: TIEMPO_COMIDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_DIETA
+		dataType: int64
+		formatString: 0
+		lineageTag: 418d238a-cdab-42c0-867a-79c28f004967
+		summarizeBy: sum
+		sourceColumn: VALOR_DIETA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PRODUCTOS = m
+		mode: import
+		source = ```
+				let
+				//---------------------------------------------------------------------
+				// 1. FUNCIONES AUXILIARES
+				//---------------------------------------------------------------------
+				
+				    // Limpia texto: TRIM + CLEAN + MAYÚSCULAS + sin tildes
+				    fxTextoNormalizado = (txt as nullable text) as nullable text =>
+				        if txt = null then null 
+				        else 
+				            let
+				                limpio = Text.Upper(Text.Clean(Text.Trim(txt))),
+				                sinTildes = Text.Replace(
+				                    Text.Replace(
+				                        Text.Replace(
+				                            Text.Replace(
+				                                Text.Replace(limpio,"Á","A"),
+				                            "É","E"),
+				                        "Í","I"),
+				                    "Ó","O"),
+				                "Ú","U")
+				            in
+				                sinTildes,
+				
+				//---------------------------------------------------------------------
+				// 2. CARGA DE DATOS
+				//---------------------------------------------------------------------
+				
+				    Origen = Excel.Workbook(
+				        File.Contents("C:\Users\Juan\Documents\Ventas Minutricion\archivos Minutricion\PRODUCTOS.xlsx"), 
+				        null, true
+				    ),
+				
+				    HojaProductos = Origen{[Item="PRODUCTOS",Kind="Sheet"]}[Data],
+				
+				    Encabezados = Table.PromoteHeaders(HojaProductos, [PromoteAllScalars=true]),
+				
+				//---------------------------------------------------------------------
+				// 3. LIMPIEZA Y NORMALIZACIÓN
+				//---------------------------------------------------------------------
+				
+				    ColumnasTexto = {
+				        "Cod-producto ", "Cod_dieta", "Tipo de dieta ", 
+				        "Emplatado ", "Desayuno", "Almuerzo ", "Cena"
+				    },
+				
+				    DatosLimpios = Table.TransformColumns(
+				        Table.TransformColumnTypes(Encabezados, {
+				            {"Cod-producto ", type text},
+				            {"Desayuno", type text},
+				            {"Almuerzo ", type text},
+				            {"Cena", type text}
+				        }, "es-CO"),
+				        List.Transform(ColumnasTexto, each {_, fxTextoNormalizado, type text})
+				    ),
+				
+				//---------------------------------------------------------------------
+				// 4. ESTRUCTURA Y RENOMBRE DE COLUMNAS
+				//---------------------------------------------------------------------
+				
+				    ColumnasRenombradas = Table.RenameColumns(DatosLimpios,{
+				        {"Cod-producto ", "COD_PRODUCTO"},
+				        {"Cod_dieta", "COD_DIETA"},
+				        {"Tipo de dieta ", "TIPO_DIETA"},
+				        {"Emplatado ", "TIPO_EMPLATADO"},
+				        {"Desayuno", "DESAYUNO"},
+				        {"Almuerzo ", "ALMUERZO"},
+				        {"Cena", "CENA"}
+				    }),
+				
+				    ColumnasOrdenadas = Table.ReorderColumns(ColumnasRenombradas,{
+				        "COD_PRODUCTO", "COD_DIETA", "TIPO_DIETA", 
+				        "TIPO_EMPLATADO", "DESAYUNO", "ALMUERZO", "CENA"
+				    }),
+				
+				//---------------------------------------------------------------------
+				// 5. TRANSFORMACIÓN (DESPIVOTAR)
+				//---------------------------------------------------------------------
+				
+				    Despivotado = Table.Unpivot(
+				        ColumnasOrdenadas, 
+				        {"DESAYUNO", "ALMUERZO", "CENA"}, 
+				        "TIEMPO_COMIDA", 
+				        "VALOR_DIETA"
+				    ),
+				
+				//---------------------------------------------------------------------
+				// 6. TIPOS DE DATOS FINALES
+				//---------------------------------------------------------------------
+				
+				    TiposFinales = Table.TransformColumnTypes(Despivotado,{
+				        {"VALOR_DIETA", Int64.Type}
+				    })
+				
+				in
+				    TiposFinales
+				```
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,65 @@
+expression DICCIONARIO_PRODUCTOS = ```
+		let
+		//---------------------------------------------------------------------
+		// 1. FUNCIÓN AUXILIAR
+		//---------------------------------------------------------------------
+		
+		    // Normaliza texto: limpia, mayúsculas y sin tildes
+		    fxTextoNormalizado = (txt as nullable text) as nullable text =>
+		        if txt = null then null 
+		        else 
+		            let
+		                limpio = Text.Upper(Text.Clean(Text.Trim(txt))),
+		                sinTildes = Text.Replace(
+		                    Text.Replace(
+		                        Text.Replace(
+		                            Text.Replace(
+		                                Text.Replace(limpio,"Á","A"),
+		                            "É","E"),
+		                        "Í","I"),
+		                    "Ó","O"),
+		                "Ú","U")
+		            in
+		                sinTildes,
+		
+		//---------------------------------------------------------------------
+		// 2. CARGA DE DATOS
+		//---------------------------------------------------------------------
+		
+		    Origen = Excel.Workbook(
+		        File.Contents("C:\Users\Juan\Documents\Ventas Minutricion\archivos Minutricion\PRODUCTOS.xlsx"), 
+		        null, true
+		    ),
+		
+		    HojaProductos = Origen{[Item="PRODUCTOS",Kind="Sheet"]}[Data],
+		
+		    Encabezados = Table.PromoteHeaders(HojaProductos, [PromoteAllScalars=true]),
+		
+		//---------------------------------------------------------------------
+		// 3. NORMALIZACIÓN (SOLO LO NECESARIO)
+		//---------------------------------------------------------------------
+		
+		    // Solo trabajamos la columna relevante
+		    TipoDietaNormalizada = Table.TransformColumns(
+		        Encabezados,
+		        {{"Tipo de dieta ", fxTextoNormalizado, type text}}
+		    ),
+		
+		//---------------------------------------------------------------------
+		// 4. RESULTADO FINAL
+		//---------------------------------------------------------------------
+		
+		    Resultado = Table.SelectColumns(
+		        TipoDietaNormalizada,
+		        {"Tipo de dieta "}
+		    )
+		
+		in
+		    Resultado
+		```
+	lineageTag: 126e15ba-246c-4125-ac68-12fddb953203
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

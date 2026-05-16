@@ -1,0 +1,9 @@
+relationship b5b00448-1626-45ba-9faa-416de1828655
+	joinOnDateBehavior: datePartOnly
+	fromColumn: REGISTRO.'FECHA Y HORA DE REGISTRO'
+	toColumn: LocalDateTable_42152bfb-0f2f-43ed-ac22-9ab0eab2b75c.Date
+
+relationship 0d6ab84b-ab98-fa5e-664e-0c57decd4d40
+	fromColumn: REGISTRO.Fecha
+	toColumn: Calendario.Date
+

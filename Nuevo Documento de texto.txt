@@ -1,0 +1,6 @@
+# Ignorar copias locales de datos y archivos de usuario de Power BI
+.pbi/
+*.user.config
+
+# Ignorar caché de datos del modelo
+**/cache.json

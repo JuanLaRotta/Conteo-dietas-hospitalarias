@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "c114402c082702107066",
+  "position": {
+    "x": 297.14285714285717,
+    "y": 337.14285714285717,
+    "z": 0,
+    "height": 647.14285714285722,
+    "width": 508.57142857142861,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "REGISTRO"
+                    }
+                  },
+                  "Property": "TIPO_DIETA"
+                }
+              },
+              "queryRef": "REGISTRO.TIPO_DIETA",
+              "nativeQueryRef": "TIPO_DIETA"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "REGISTRO"
+                    }
+                  },
+                  "Property": "Total Dietas"
+                }
+              },
+              "queryRef": "REGISTRO.Total Dietas",
+              "nativeQueryRef": "Total Dietas"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "REGISTRO"
+                        }
+                      },
+                      "Property": "VALOR TOTAL"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(REGISTRO.VALOR TOTAL)",
+              "nativeQueryRef": "Suma de VALOR TOTAL",
+              "format": "\\$ #,0.###############;-\\$ #,0.###############;\\$ #,0.###############"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "REGISTRO"
+                  }
+                },
+                "Property": "TIPO_DIETA"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "bab8cff0ade50007e8e4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "REGISTRO"
+              }
+            },
+            "Property": "TIPO_EMPLATADO"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "isLockedInViewMode": true
+      }
+    ]
+  }
+}

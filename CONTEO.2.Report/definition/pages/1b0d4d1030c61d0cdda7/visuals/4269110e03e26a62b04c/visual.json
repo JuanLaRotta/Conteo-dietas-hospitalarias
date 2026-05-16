@@ -1,0 +1,127 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "4269110e03e26a62b04c",
+  "position": {
+    "x": 327.55905511811028,
+    "y": 665.19685039370086,
+    "z": 5000,
+    "height": 241.88976377952758,
+    "width": 1264.8818897637796,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "REGISTRO"
+                    }
+                  },
+                  "Property": "Fecha"
+                }
+              },
+              "queryRef": "REGISTRO.Fecha",
+              "nativeQueryRef": "Fecha",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "REGISTRO"
+                        }
+                      },
+                      "Property": "VALOR TOTAL"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(REGISTRO.VALOR TOTAL)",
+              "nativeQueryRef": "VALOR TOTAL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "REGISTRO"
+                    }
+                  },
+                  "Property": "Total refrigerio"
+                }
+              },
+              "queryRef": "REGISTRO.Total refrigerio",
+              "nativeQueryRef": "Total refrigerio"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "REGISTRO"
+                    }
+                  },
+                  "Property": "Total Apoyos Acompañante"
+                }
+              },
+              "queryRef": "REGISTRO.Total Apoyos Acompañante",
+              "nativeQueryRef": "Total Apoyos Acompañante"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "REGISTRO"
+                        }
+                      },
+                      "Property": "VALOR_DIETA"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(REGISTRO.VALOR_DIETA)",
+              "nativeQueryRef": "Suma de VALOR_DIETA"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "REGISTRO"
+                  }
+                },
+                "Property": "Fecha"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

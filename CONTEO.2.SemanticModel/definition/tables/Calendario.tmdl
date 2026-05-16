@@ -1,0 +1,95 @@
+table Calendario
+	lineageTag: 7063f619-a4ff-46f5-95e5-8a6fc671fcf0
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: 36f55702-6ae8-4b09-bc34-f84df0342dc5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Año
+		formatString: 0
+		lineageTag: 3d86c953-ec7d-4b2a-b6fc-b375f610652e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Año]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		lineageTag: 9ddccfa6-beb5-49e2-a89e-f090b9f80cf3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mes]
+		sortByColumn: 'Mes Número'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mes Número'
+		formatString: 0
+		lineageTag: a8cc5092-ebeb-4d79-8eda-694fb5e4128a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Mes Número]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Año-Mes
+		lineageTag: ed280d6e-c24f-4c66-b457-67aa1236b752
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Año-Mes]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mes Año Texto'
+		lineageTag: a64bb6d0-d770-4422-aff5-8142125be6f2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mes Año Texto]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semana
+		formatString: 0
+		lineageTag: 6d857830-9486-4318-a9dc-c6bda85f1f73
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Semana]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Día
+		formatString: 0
+		lineageTag: a7a7fd1b-1c75-43d1-8e5d-4048d36ae2f5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Día]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendario = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    CALENDAR(
+				        MIN('REGISTRO'[FECHA Y HORA DE REGISTRO]),
+				        MAX('REGISTRO'[FECHA Y HORA DE REGISTRO])
+				    ),
+				    "Año", YEAR([Date]),
+				    "Mes", FORMAT([Date], "MMM"),
+				    "Mes Número", MONTH([Date]),
+				    "Año-Mes", FORMAT([Date], "YYYY-MM"),
+				    "Mes Año Texto", FORMAT([Date], "MMM YYYY"),
+				    "Semana", WEEKNUM([Date],2),
+				    "Día", DAY([Date])
+				)
+
+	annotation PBI_Id = 6b6ec5f352d743349034aafb88060e74
+

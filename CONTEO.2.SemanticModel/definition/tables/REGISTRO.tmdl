@@ -1,0 +1,397 @@
+table REGISTRO
+	lineageTag: 88f237eb-610c-4495-9c71-d4d0d3976b12
+
+	measure Facturacion_Total =
+			
+			SUMX(
+			    'REGISTRO',
+			    VALUE('REGISTRO'[VALOR TOTAL])
+			)
+		lineageTag: bd56ddfe-51c9-4593-9f4d-df7dc701891d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Dietas' = COUNT('REGISTRO'[INDICE])
+		formatString: 0
+		lineageTag: 054d0bcd-65c4-4045-84b1-1ef94489690e
+
+	measure 'Total Apoyos Acompañante' =
+			
+			CALCULATE(
+			    COUNTROWS('REGISTRO'),
+			    'REGISTRO'[DIETA_APOYO] <> "0"
+			)
+		formatString: 0
+		lineageTag: 0e44ee51-945c-4c9d-a4b2-7fb2323b1d3d
+
+	measure 'Total refrigerio' =
+			
+			CALCULATE(
+			    COUNTROWS('REGISTRO'),
+			    'REGISTRO'[REFRIGERIO] <> "0"
+			)
+		formatString: 0
+		lineageTag: 854dbc98-5220-4320-bca2-8869b697fa05
+
+	column 'FECHA Y HORA DE REGISTRO'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 323f90c0-34c3-4aad-a99c-10f6b143546f
+		summarizeBy: none
+		sourceColumn: FECHA Y HORA DE REGISTRO
+
+		variation Variación
+			isDefault
+			relationship: b5b00448-1626-45ba-9faa-416de1828655
+			defaultHierarchy: LocalDateTable_42152bfb-0f2f-43ed-ac22-9ab0eab2b75c.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIEMPO_COMIDA
+		dataType: string
+		lineageTag: d2b3cb8f-2ecf-4532-af39-b7430421def6
+		summarizeBy: none
+		sourceColumn: TIEMPO_COMIDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UNIDAD SOLICITANTE'
+		dataType: string
+		lineageTag: b0b495b2-327d-4305-b163-86da6f163e67
+		summarizeBy: none
+		sourceColumn: UNIDAD SOLICITANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cama
+		dataType: string
+		lineageTag: 38496783-d79d-458d-9cf6-d2a9bd8ab5cc
+		summarizeBy: none
+		sourceColumn: Cama
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_DIETA
+		dataType: string
+		lineageTag: 358dd61f-5aa5-4b36-a123-8c0dd139f874
+		summarizeBy: none
+		sourceColumn: TIPO_DIETA
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBSERVACIONES_MEDICO
+		dataType: string
+		lineageTag: ddd4e198-f7b5-482c-aa3d-f572ac0766ea
+		summarizeBy: none
+		sourceColumn: OBSERVACIONES_MEDICO
+
+		annotation SummarizationSetBy = Automatic
+
+	column IDENTIFICACION
+		dataType: string
+		lineageTag: e609aebb-d2e4-4c91-aae3-b0ecec4cbfc5
+		summarizeBy: none
+		sourceColumn: IDENTIFICACION
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOMBRE_PACIENTE
+		dataType: string
+		lineageTag: 49976744-bf6f-4020-8bdd-5726087606cc
+		summarizeBy: none
+		sourceColumn: NOMBRE_PACIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column REFRIGERIO
+		dataType: string
+		lineageTag: d5f60758-77fd-4f16-adb7-02bfabfdd6c9
+		summarizeBy: none
+		sourceColumn: REFRIGERIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIETA_APOYO
+		dataType: string
+		lineageTag: 0f0c6c83-1b9b-4e7b-841b-dad719dee486
+		summarizeBy: none
+		sourceColumn: DIETA_APOYO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_EMPLATADO
+		dataType: string
+		lineageTag: 703560fa-04e8-409a-8640-dad8b3159454
+		summarizeBy: none
+		sourceColumn: TIPO_EMPLATADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_DIETA
+		dataType: int64
+		formatString: 0
+		lineageTag: 77c46afa-4746-47d7-82d9-3eaf33751f92
+		summarizeBy: sum
+		sourceColumn: VALOR_DIETA
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha =
+			DATE(
+			    YEAR('REGISTRO'[FECHA Y HORA DE REGISTRO]),
+			    MONTH('REGISTRO'[FECHA Y HORA DE REGISTRO]),
+			    DAY('REGISTRO'[FECHA Y HORA DE REGISTRO])
+			)
+		formatString: General Date
+		lineageTag: 26a6476f-bdb4-48d4-a139-a5649d44d873
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column INDICE
+		dataType: int64
+		formatString: 0
+		lineageTag: b5ee1cbc-cd2f-4876-b036-ec6ba39197fd
+		summarizeBy: sum
+		sourceColumn: INDICE
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_DIETA_DICT
+		dataType: string
+		lineageTag: e420b552-a303-4b6b-bef1-43b51deef0fc
+		summarizeBy: none
+		sourceColumn: TIPO_DIETA_DICT
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_REFRIGERIO
+		dataType: int64
+		formatString: 0
+		lineageTag: 6adc69f8-17c0-4c7b-8e23-b19cf081ca76
+		summarizeBy: sum
+		sourceColumn: VALOR_REFRIGERIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_DIETA_APOYO
+		dataType: int64
+		formatString: 0
+		lineageTag: 56dce4d8-eae1-4718-9c08-8145cbca66a6
+		summarizeBy: sum
+		sourceColumn: VALOR_DIETA_APOYO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'VALOR TOTAL'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e3011c5-5603-448a-b0eb-e0f09a75188b
+		summarizeBy: sum
+		sourceColumn: VALOR TOTAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition REGISTRO = m
+		mode: import
+		source = ```
+				let
+				//---------------------------------------------------------------------
+				// 1. FUNCIONES AUXILIARES
+				//---------------------------------------------------------------------
+				
+				    // Función para limpiar texto: TRIM + CLEAN + UPPER
+				    fxLimpiarTexto = (col as nullable text) as nullable text =>
+				        if col = null then null 
+				        else Text.Upper(Text.Clean(Text.Trim(col))),
+				
+				//---------------------------------------------------------------------
+				// 2. CARGA Y PREPARACIÓN INICIAL
+				//---------------------------------------------------------------------
+				
+				    Origen = Excel.Workbook(
+				        File.Contents("C:\Users\Juan\Documents\Ventas Minutricion\archivos Minutricion\BASE DE REGISTRO.xlsx"), 
+				        null, true
+				    ),
+				
+				    HojaRegistro = Origen{[Item="REGISTRO",Kind="Sheet"]}[Data],
+				
+				    Encabezados = Table.PromoteHeaders(HojaRegistro, [PromoteAllScalars=true]),
+				
+				    // Eliminación de columnas innecesarias
+				    ColumnasFiltradas = Table.RemoveColumns(Encabezados,{
+				        "Grupo atención", "Entidad", "Diagnóstico Principal", "Ingreso", 
+				        "Edad", "Dias", "Fecha hospitalización", "Fecha orden", 
+				        "Observaciones enfermería"
+				    }),
+				
+				//---------------------------------------------------------------------
+				// 3. LIMPIEZA Y NORMALIZACIÓN DE TEXTO
+				//---------------------------------------------------------------------
+				
+				    ColumnasTexto = {
+				        "TIEMPO DE COMIDA", "Unidad Solicitante ", "Cama", 
+				        "Fecha y Hora de registro ", "Tipo de dieta", 
+				        "Observaciones médico", "Identificación", "Nombre paciente"
+				    },
+				
+				    TextoNormalizado = Table.TransformColumns(
+				        Table.TransformColumnTypes(ColumnasFiltradas, {
+				            {"Fecha y Hora de registro ", type text}, 
+				            {"Identificación", type text}
+				        }, "es-CO"),
+				        List.Transform(ColumnasTexto, each {_, fxLimpiarTexto, type text})
+				    ),
+				
+				//---------------------------------------------------------------------
+				// 4. ESTRUCTURA DE LA TABLA
+				//---------------------------------------------------------------------
+				
+				    ConIndice = Table.AddIndexColumn(TextoNormalizado, "INDICE", 1, 1, Int64.Type),
+				
+				    ColumnasRenombradas = Table.RenameColumns(ConIndice,{
+				        {"Fecha y Hora de registro ", "FECHA Y HORA DE REGISTRO"},
+				        {"Unidad Solicitante ", "UNIDAD SOLICITANTE"},
+				        {"Tipo de dieta", "TIPO_DIETA"},
+				        {"Observaciones médico", "OBSERVACIONES_MEDICO"},
+				        {"Identificación", "IDENTIFICACION"},
+				        {"Nombre paciente", "NOMBRE_PACIENTE"},
+				        {"TIEMPO DE COMIDA", "TIEMPO_COMIDA"}
+				    }),
+				
+				//---------------------------------------------------------------------
+				// 5. LÓGICA DE NEGOCIO (REFRIGERIOS Y EMPLATADO)
+				//---------------------------------------------------------------------
+				
+				    ConRefrigerio = Table.AddColumn(ColumnasRenombradas, "REFRIGERIO", each 
+				        let
+				            tiempo = [TIEMPO_COMIDA],
+				            dietaTexto = [TIPO_DIETA],
+				
+				            listaDietas = if Text.Contains(dietaTexto, ".") 
+				                then List.Transform(Text.Split(dietaTexto, "."), Text.Trim)
+				                else {dietaTexto},
+				
+				            listaDesAlm = {"HIPOGLUCIDA","HIPERPROTEICA","PEDIATRICA","CORONARIA"},
+				            listaCena = {"HIPOGLUCIDA","CORONARIA"},
+				
+				            cumpleDesAlm = List.AnyTrue(
+				                List.Transform(listaDietas, (d) => 
+				                    List.AnyTrue(List.Transform(listaDesAlm, (x) => Text.StartsWith(d, x)))
+				                )
+				            ),
+				
+				            cumpleCena = List.AnyTrue(
+				                List.Transform(listaDietas, (d) => 
+				                    List.AnyTrue(List.Transform(listaCena, (x) => Text.StartsWith(d, x)))
+				                )
+				            )
+				        in
+				            if ((tiempo = "DESAYUNO" or tiempo = "ALMUERZO") and cumpleDesAlm)
+				                or (tiempo = "CENA" and cumpleCena)
+				            then "REFRIGERIOS"
+				            else 0
+				    ),
+				
+				    ConEmplatado = Table.AddColumn(ConRefrigerio, "TIPO_EMPLATADO", each 
+				        if [OBSERVACIONES_MEDICO] <> null and 
+				           Text.Contains([OBSERVACIONES_MEDICO], "AIS") 
+				        then "BIODEGRADABLE" 
+				        else "EMPLATADO"
+				    ),
+				
+				//---------------------------------------------------------------------
+				// 6. EXPANSIÓN Y DICCIONARIO DE DIETAS
+				//---------------------------------------------------------------------
+				
+				    DietasSeparadas = Table.ExpandListColumn(
+				        Table.TransformColumns(ConEmplatado, {
+				            {"TIPO_DIETA", Splitter.SplitTextByDelimiter(".", QuoteStyle.Csv)}
+				        }),
+				        "TIPO_DIETA"
+				    ),
+				
+				    FechaConvertida = Table.TransformColumnTypes(DietasSeparadas,{
+				        {"FECHA Y HORA DE REGISTRO", type datetimezone}
+				    }),
+				
+				    DiccionarioDietas = Table.AddColumn(FechaConvertida, "TIPO_DIETA_DICT", each 
+				        let
+				            dietaActual = [TIPO_DIETA],
+				            lista = List.Transform(PRODUCTOS[TIPO_DIETA], fxLimpiarTexto),
+				
+				            match = List.First(
+				                List.Select(lista, (x) => 
+				                    dietaActual = x or Text.StartsWith(dietaActual, x & " ")
+				                ),
+				                null
+				            )
+				        in match
+				    ),
+				
+				//---------------------------------------------------------------------
+				// 7. CRUCE CON TABLA PRODUCTOS
+				//---------------------------------------------------------------------
+				
+				    JoinDietas = Table.NestedJoin(
+				        DiccionarioDietas, 
+				        {"TIEMPO_COMIDA","TIPO_EMPLATADO","TIPO_DIETA_DICT"},
+				        PRODUCTOS,
+				        {"TIEMPO_COMIDA","TIPO_EMPLATADO","TIPO_DIETA"},
+				        "DATA", JoinKind.LeftOuter
+				    ),
+				
+				    ExpandDietas = Table.ExpandTableColumn(JoinDietas,"DATA",{"VALOR_DIETA"}),
+				
+				    FiltrarValidos = Table.SelectRows(ExpandDietas, each [VALOR_DIETA] <> null),
+				
+				    QuitarDuplicados = Table.Distinct(FiltrarValidos, {"INDICE"}),
+				
+				//---------------------------------------------------------------------
+				// 8. CÁLCULO DE VALORES (REFRIGERIO Y APOYO)
+				//---------------------------------------------------------------------
+				
+				    JoinRefrigerio = Table.NestedJoin(
+				        QuitarDuplicados,
+				        {"TIEMPO_COMIDA","TIPO_EMPLATADO","REFRIGERIO"},
+				        PRODUCTOS,
+				        {"TIEMPO_COMIDA","TIPO_EMPLATADO","TIPO_DIETA"},
+				        "REF", JoinKind.LeftOuter
+				    ),
+				
+				    ExpandRef = Table.ExpandTableColumn(JoinRefrigerio,"REF",{"VALOR_DIETA"},{"VALOR_REFRIGERIO"}),
+				
+				    ConApoyo = Table.AddColumn(ExpandRef, "DIETA_APOYO", each 
+				        if Text.Contains([OBSERVACIONES_MEDICO] ?? "", "APY") 
+				        then "NORMAL" else 0
+				    ),
+				
+				    JoinApoyo = Table.NestedJoin(
+				        ConApoyo,
+				        {"TIEMPO_COMIDA","TIPO_EMPLATADO","DIETA_APOYO"},
+				        PRODUCTOS,
+				        {"TIEMPO_COMIDA","TIPO_EMPLATADO","TIPO_DIETA"},
+				        "APY", JoinKind.LeftOuter
+				    ),
+				
+				    ExpandApoyo = Table.ExpandTableColumn(JoinApoyo,"APY",{"VALOR_DIETA"},{"VALOR_DIETA_APOYO"}),
+				
+				//---------------------------------------------------------------------
+				// 9. CÁLCULO FINAL
+				//---------------------------------------------------------------------
+				
+				    TotalServicio = Table.AddColumn(ExpandApoyo, "VALOR TOTAL", each 
+				        ( [VALOR_DIETA] ?? 0 ) +
+				        ( [VALOR_REFRIGERIO] ?? 0 ) +
+				        ( [VALOR_DIETA_APOYO] ?? 0 ),
+				        Int64.Type
+				    )
+				
+				in
+				    TotalServicio
+				```
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

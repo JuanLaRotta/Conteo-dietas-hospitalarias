@@ -1,0 +1,22 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CO
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["REGISTRO","PRODUCTOS","DICCIONARIO_PRODUCTOS"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table REGISTRO
+ref table PRODUCTOS
+ref table DateTableTemplate_542310e0-10e1-4bb2-acea-1e6a01de5936
+ref table LocalDateTable_42152bfb-0f2f-43ed-ac22-9ab0eab2b75c
+ref table Calendario
+
+ref cultureInfo es-ES
+

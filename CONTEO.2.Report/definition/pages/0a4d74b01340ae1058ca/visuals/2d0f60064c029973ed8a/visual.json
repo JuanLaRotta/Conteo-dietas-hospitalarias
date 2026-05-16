@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "2d0f60064c029973ed8a",
+  "position": {
+    "x": 0,
+    "y": 8.6419753086419746,
+    "z": 5000,
+    "height": 134.5679012345679,
+    "width": 806.17283950617275,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "FACTURACIÓN ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "32pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "SEDE \"_______________\"",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "32pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

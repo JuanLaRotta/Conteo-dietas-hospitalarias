@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "CONTEO.2"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "02bc401f-53d8-4286-84b2-9c0bdc75e7e8"
+  }
+}
